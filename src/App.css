@@ -23,4 +23,15 @@ td {
 .torpedo {
   font-size: 30px;
   text-align: left;
+  margin-right: 5%;
+}
+
+.ships {
+  margin-left: 5%;
+    font-size: 30px;
+    text-align: right;
+}
+
+.miss {
+  background-color: red;
 }
