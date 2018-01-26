@@ -5,6 +5,8 @@ const SHIP = "SHIP";
 const SHIP_HIT = "HIT!";
 const EMPTY_HIT = "MISS";
 
+const BUFFER = "BUFFER";
+
 class Board extends Component {
   constructor(props) {
     super(props)
@@ -38,14 +40,64 @@ class Board extends Component {
     let row = Math.floor(Math.random() * 6)
     let col = Math.floor(Math.random() * 10)
 
-    if (!newBoard[row][col] && !newBoard[row+1][col] &&
-      !newBoard[row+2][col] && !newBoard[row+3][col] && !newBoard[row+4][col]) {
+    if(!newBoard[row][col] && !newBoard[row+1][col] &&
+      !newBoard[row+2][col] && !newBoard[row+3][col] && !newBoard[row+4][col]){
+
+
+      !newBoard[row][col+1] &&
+      !newBoard[row][col-1] &&
+
+      !newBoard[row+1][col+1] &&
+      !newBoard[row+1][col-1] &&
+
+      !newBoard[row-1][col+1] &&
+      !newBoard[row-1][col-1] &&
+
+      !newBoard[row][col] &&
+      !newBoard[row+1][col-1] &&
+
+      !newBoard[row+2][col+1] &&
+      !newBoard[row+2][col-1] &&
+      !newBoard[row+3][col+1] &&
+      !newBoard[row+3][col-1] &&
+      !newBoard[row+4][col+1] &&
+      !newBoard[row+4][col-1] &&
+      !newBoard[row+4][col+1] &&
+      !newBoard[row+4][col+1] &&
+      !newBoard[row+5][col+1] &&
+      !newBoard[row+5][col] &&
+      !newBoard[row+5][col-1]
+
       newBoard[row][col] = SHIP
+      newBoard[row][col+1] = BUFFER
+      newBoard[row][col-1] = BUFFER
+      newBoard[row+1][col+1] = BUFFER
+      newBoard[row-1][col+1] = BUFFER
+      newBoard[row-1][col] = BUFFER
+      newBoard[row-1][col-1] = BUFFER
+
       newBoard[row+1][col] = SHIP
+      newBoard[row+1][col+1] = BUFFER
+      newBoard[row+1][col-1] = BUFFER
+
       newBoard[row+2][col] = SHIP
+      newBoard[row+2][col+1] = BUFFER
+      newBoard[row+2][col-1] = BUFFER
+
       newBoard[row+3][col] = SHIP
+      newBoard[row+3][col+1] = BUFFER
+      newBoard[row+3][col-1] = BUFFER
+
       newBoard[row+4][col] = SHIP
-    } else {
+      newBoard[row+4][col+1] = BUFFER
+      newBoard[row+4][col-1] = BUFFER
+      newBoard[row+4][col+1] = BUFFER
+      newBoard[row+4][col+1] = BUFFER
+
+      newBoard[row+5][col+1] = BUFFER
+      newBoard[row+5][col ] = BUFFER
+      newBoard[row+5][col-1] = BUFFER
+    }else {
       this.aircraftCarrierVertical()
     }
   }
@@ -57,14 +109,48 @@ class Board extends Component {
 
     if (!newBoard[row][col] && !newBoard[row][col+1] &&
       !newBoard[row][col+2] && !newBoard[row][col+3] && !newBoard[row][col+4]) {
+
+      // DO NOT NEED EDGE DETECTION FOR FIRST SHIP RENDERED.
+
       newBoard[row][col] = SHIP
-      newBoard[row][col+1] = SHIP
-      newBoard[row][col+2] = SHIP
-      newBoard[row][col+3] = SHIP
-      newBoard[row][col+4] = SHIP
+      newBoard[row+1][col ] = BUFFER
+      newBoard[row-1][col ] = BUFFER
+      newBoard[row ][col+1 ] = BUFFER
+      newBoard[row+1][col+1] = BUFFER
+      newBoard[row+1][col-1] = BUFFER
+      newBoard[row  ][col-1] = BUFFER
+      newBoard[row-1][col-1] = BUFFER
+
+      newBoard[row  ][col+1] = SHIP
+      newBoard[row+1][col+1] = BUFFER
+      newBoard[row-1][col+1] = BUFFER
+
+      newBoard[row  ][col+2] = SHIP
+      newBoard[row+1][col+2] = BUFFER
+      newBoard[row-1][col+2] = BUFFER
+
+      newBoard[row  ][col+3] = SHIP
+      newBoard[row+1][col+3] = BUFFER
+      newBoard[row-1][col+3] = BUFFER
+
+
+      newBoard[row  ][col+4] = SHIP
+      newBoard[row+1][col+4] = BUFFER
+      newBoard[row-1][col+4] = BUFFER
+      newBoard[row+1][col+4] = BUFFER
+      newBoard[row+1][col+4] = BUFFER
+
+      newBoard[row+1][col+5] = BUFFER
+      newBoard[row  ][col+5] = BUFFER
+      newBoard[row-1][col+5] = BUFFER
+
     } else {
-      this.aircraftCarrierHorizontal
+      this.aircraftCarrierHorizontal()
     }
+  }
+
+  edgeDetection() {
+
   }
 
   uShipVertical() {
@@ -73,10 +159,18 @@ class Board extends Component {
     let col = Math.floor(Math.random() * 7)
 
     if (!newBoard[row][col] && !newBoard[row][col+1] &&
-      !newBoard[row][col+2] && !newBoard[row][col+3]) {
+      !newBoard[row][col+2] && !newBoard[row][col+3]
+      // edge detection
+    ) {
       newBoard[row][col] = SHIP
+
+
       newBoard[row][col+1] = SHIP
+
+
       newBoard[row][col+2] = SHIP
+
+
       newBoard[row][col+3] = SHIP
     } else {
       this.uShipVertical()
@@ -88,12 +182,12 @@ class Board extends Component {
     let row = Math.floor(Math.random() * 6)
     let col = Math.floor(Math.random() * 10)
 
-    if (!newBoard[row][col] && !newBoard[row][col+1] &&
-      !newBoard[row][col+2] && !newBoard[row][col+3]) {
+    if (!newBoard[row][col] && !newBoard[row+1][col] &&
+      !newBoard[row+2][col] && !newBoard[row+3][col]) {
       newBoard[row][col] = SHIP
-      newBoard[row][col+1] = SHIP
-      newBoard[row][col+2] = SHIP
-      newBoard[row][col+3] = SHIP
+      newBoard[row+1][col] = SHIP
+      newBoard[row+2][col] = SHIP
+      newBoard[row+3][col] = SHIP
     } else {
       this.uShipHorizontal()
     }
@@ -102,7 +196,7 @@ class Board extends Component {
   submarineVertical() {
     let newBoard = this.state.board
     let row = Math.floor(Math.random() * 10)
-    let col = Math.floor(Math.random() * 8)
+    let col = Math.floor(Math.random() * 7)
 
     if (!newBoard[row][col] && !newBoard[row][col+1] &&
       !newBoard[row][col+2]) {
@@ -119,11 +213,11 @@ class Board extends Component {
     let row = Math.floor(Math.random() * 7)
     let col = Math.floor(Math.random() * 10)
 
-    if (!newBoard[row][col] && !newBoard[row][col+1] &&
-      !newBoard[row][col+2]) {
+    if (!newBoard[row][col] && !newBoard[row+1][col] &&
+      !newBoard[row+2][col]) {
       newBoard[row][col] = SHIP
-      newBoard[row][col+1] = SHIP
-      newBoard[row][col+2] = SHIP
+      newBoard[row+1][col] = SHIP
+      newBoard[row+2][col] = SHIP
     } else {
       this.submarineHorizontal()
     }
@@ -147,9 +241,9 @@ class Board extends Component {
     let row = Math.floor(Math.random() * 9)
     let col = Math.floor(Math.random() * 10)
 
-    if (!newBoard[row][col] && !newBoard[row][col+1]) {
+    if (!newBoard[row][col] && !newBoard[row+1][col]) {
       newBoard[row][col] = SHIP
-      newBoard[row][col+1] = SHIP
+      newBoard[row+1][col] = SHIP
     } else {
       this.cruiserHorizontal()
     }
@@ -212,7 +306,7 @@ class Board extends Component {
   clickHandler(row, col, e) {
     const board = this.state.board
 
-    if (this.state.torpedoes === 0) {
+    if (this.state.torpedoes < 1) {
       alert('Game Over')
 
     } else if (board[col][row] === SHIP) {
@@ -223,7 +317,7 @@ class Board extends Component {
         torpedoes: this.state.torpedoes -= 1
       })
 
-    } else if (board[col][row] === EMPTY) {
+    } else if (board[col][row] === EMPTY || board[col][row] === BUFFER) {
       board[col][row] = EMPTY_HIT
       e.target.style.backgroundColor = 'red'
       this.setState({
@@ -239,6 +333,7 @@ class Board extends Component {
         board: board,
         torpedoes: this.state.torpedoes -= 1
       })
+
     }
   }
 
