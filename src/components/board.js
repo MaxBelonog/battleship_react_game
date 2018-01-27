@@ -40,22 +40,16 @@ class Board extends Component {
     let row = Math.floor(Math.random() * 6)
     let col = Math.floor(Math.random() * 10)
 
-    if(!newBoard[row][col] && !newBoard[row+1][col] &&
-      !newBoard[row+2][col] && !newBoard[row+3][col] && !newBoard[row+4][col]){
-
+    if (!newBoard[row][col] && !newBoard[row+1][col] && !newBoard[row+2][col] && !newBoard[row+3][col] && !newBoard[row+4][col]) {
 
       !newBoard[row][col+1] &&
       !newBoard[row][col-1] &&
-
+      !newBoard[row+1][col+1] &&
+      !newBoard[row-1][col+1] &&
+      !newBoard[row-1][col] &&
+      !newBoard[row-1][col-1] &&
       !newBoard[row+1][col+1] &&
       !newBoard[row+1][col-1] &&
-
-      !newBoard[row-1][col+1] &&
-      !newBoard[row-1][col-1] &&
-
-      !newBoard[row][col] &&
-      !newBoard[row+1][col-1] &&
-
       !newBoard[row+2][col+1] &&
       !newBoard[row+2][col-1] &&
       !newBoard[row+3][col+1] &&
@@ -73,31 +67,31 @@ class Board extends Component {
       newBoard[row][col-1] = BUFFER
       newBoard[row+1][col+1] = BUFFER
       newBoard[row-1][col+1] = BUFFER
-      newBoard[row-1][col] = BUFFER
+      newBoard[row-1][col  ] = BUFFER
       newBoard[row-1][col-1] = BUFFER
 
-      newBoard[row+1][col] = SHIP
+      newBoard[row+1][col  ] = SHIP
       newBoard[row+1][col+1] = BUFFER
       newBoard[row+1][col-1] = BUFFER
 
-      newBoard[row+2][col] = SHIP
+      newBoard[row+2][col  ] = SHIP
       newBoard[row+2][col+1] = BUFFER
       newBoard[row+2][col-1] = BUFFER
 
-      newBoard[row+3][col] = SHIP
+      newBoard[row+3][col  ] = SHIP
       newBoard[row+3][col+1] = BUFFER
       newBoard[row+3][col-1] = BUFFER
 
-      newBoard[row+4][col] = SHIP
+      newBoard[row+4][col  ] = SHIP
       newBoard[row+4][col+1] = BUFFER
       newBoard[row+4][col-1] = BUFFER
       newBoard[row+4][col+1] = BUFFER
       newBoard[row+4][col+1] = BUFFER
 
       newBoard[row+5][col+1] = BUFFER
-      newBoard[row+5][col ] = BUFFER
+      newBoard[row+5][col  ] = BUFFER
       newBoard[row+5][col-1] = BUFFER
-    }else {
+    } else {
       this.aircraftCarrierVertical()
     }
   }
@@ -108,21 +102,22 @@ class Board extends Component {
     let col = Math.floor(Math.random() * 6)
 
     if (!newBoard[row][col] && !newBoard[row][col+1] &&
-      !newBoard[row][col+2] && !newBoard[row][col+3] && !newBoard[row][col+4]) {
+    !newBoard[row][col+2] && !newBoard[row][col+3] && !newBoard[row][col+4]) {
 
       // DO NOT NEED EDGE DETECTION FOR FIRST SHIP RENDERED.
 
       newBoard[row][col] = SHIP
+
       newBoard[row+1][col ] = BUFFER
       newBoard[row-1][col ] = BUFFER
-      newBoard[row ][col+1 ] = BUFFER
+      newBoard[row+1][col ] = BUFFER
       newBoard[row+1][col+1] = BUFFER
       newBoard[row+1][col-1] = BUFFER
       newBoard[row  ][col-1] = BUFFER
       newBoard[row-1][col-1] = BUFFER
 
       newBoard[row  ][col+1] = SHIP
-      newBoard[row+1][col+1] = BUFFER
+      // newBoard[row+1][col+1] = BUFFER
       newBoard[row-1][col+1] = BUFFER
 
       newBoard[row  ][col+2] = SHIP
@@ -159,19 +154,31 @@ class Board extends Component {
     let col = Math.floor(Math.random() * 7)
 
     if (!newBoard[row][col] && !newBoard[row][col+1] &&
-      !newBoard[row][col+2] && !newBoard[row][col+3]
-      // edge detection
-    ) {
+    !newBoard[row][col+2] && !newBoard[row][col+3]) {
+
+    // edge detection
       newBoard[row][col] = SHIP
+      newBoard[row][col] = SHIP
+      newBoard[row][col+1] = BUFFER
+      newBoard[row][col-1] = BUFFER
+      newBoard[row+1][col+1] = BUFFER
+      newBoard[row-1][col+1] = BUFFER
+      newBoard[row-1][col  ] = BUFFER
+      newBoard[row-1][col-1] = BUFFER
 
 
       newBoard[row][col+1] = SHIP
-
+      newBoard[row+1][col+1] = BUFFER
+      newBoard[row+1][col-1] = BUFFER
 
       newBoard[row][col+2] = SHIP
-
+      newBoard[row+2][col+1] = BUFFER
+      newBoard[row+2][col-1] = BUFFER
 
       newBoard[row][col+3] = SHIP
+      newBoard[row+3][col+1] = BUFFER
+      newBoard[row+3][col-1] = BUFFER
+
     } else {
       this.uShipVertical()
     }
@@ -317,7 +324,7 @@ class Board extends Component {
         torpedoes: this.state.torpedoes -= 1
       })
 
-    } else if (board[col][row] === EMPTY || board[col][row] === BUFFER) {
+    } else if (board[col][row] === EMPTY || BUFFER) {
       board[col][row] = EMPTY_HIT
       e.target.style.backgroundColor = 'red'
       this.setState({
